@@ -1,0 +1,374 @@
+/* ==========================================================================
+   Wattflow Keycloak Theme — Login & Register pages
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Reset & base
+   -------------------------------------------------------------------------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--wf-font-sans);
+  background-color: var(--wf-background);
+  color: var(--wf-foreground);
+  line-height: 1.5;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* --------------------------------------------------------------------------
+   Auth layout — centered card
+   -------------------------------------------------------------------------- */
+.wf-layout {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+.wf-card {
+  width: 100%;
+  max-width: 26rem;
+  background: var(--wf-card);
+  border: 1px solid var(--wf-border);
+  border-radius: var(--wf-radius-lg);
+  box-shadow: var(--wf-shadow-md);
+  padding: 2.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* --------------------------------------------------------------------------
+   Logo & brand header
+   -------------------------------------------------------------------------- */
+.wf-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  text-align: center;
+}
+
+.wf-logo {
+  width: 2.5rem;
+  height: 2.5rem;
+  color: var(--wf-foreground);
+}
+
+.wf-brand-name {
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  color: var(--wf-foreground);
+}
+
+.wf-page-title {
+  font-size: 0.9375rem;
+  color: var(--wf-muted-fg);
+  font-weight: 400;
+}
+
+/* --------------------------------------------------------------------------
+   Form elements
+   -------------------------------------------------------------------------- */
+.wf-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.wf-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+.wf-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--wf-foreground);
+}
+
+.wf-input {
+  width: 100%;
+  height: 2.5rem;
+  padding: 0 0.75rem;
+  font-family: var(--wf-font-sans);
+  font-size: 0.9375rem;
+  color: var(--wf-foreground);
+  background: var(--wf-background);
+  border: 1px solid var(--wf-input);
+  border-radius: var(--wf-radius);
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.wf-input::placeholder {
+  color: var(--wf-muted-fg);
+}
+
+.wf-input:focus {
+  border-color: var(--wf-ring);
+  box-shadow: 0 0 0 3px oklch(from var(--wf-ring) l c h / 0.2);
+}
+
+.wf-input:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Password wrapper with show/hide button */
+.wf-password-wrapper {
+  position: relative;
+}
+
+.wf-password-wrapper .wf-input {
+  padding-right: 2.75rem;
+}
+
+.wf-password-toggle {
+  position: absolute;
+  right: 0.625rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--wf-muted-fg);
+  padding: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.25rem;
+  transition: color 0.15s ease;
+}
+
+.wf-password-toggle:hover {
+  color: var(--wf-foreground);
+}
+
+/* --------------------------------------------------------------------------
+   Buttons
+   -------------------------------------------------------------------------- */
+.wf-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  height: 2.5rem;
+  padding: 0 1rem;
+  font-family: var(--wf-font-sans);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  border-radius: var(--wf-radius);
+  cursor: pointer;
+  transition: opacity 0.15s ease, background 0.15s ease, transform 0.1s ease;
+  border: 1px solid transparent;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.wf-btn:active {
+  transform: scale(0.98);
+}
+
+.wf-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Primary — dark fill */
+.wf-btn-primary {
+  width: 100%;
+  background: var(--wf-primary);
+  color: var(--wf-primary-fg);
+  border-color: var(--wf-primary);
+}
+
+.wf-btn-primary:hover:not(:disabled) {
+  opacity: 0.85;
+}
+
+/* Secondary / ghost */
+.wf-btn-secondary {
+  background: var(--wf-secondary);
+  color: var(--wf-secondary-fg);
+  border-color: var(--wf-border);
+}
+
+.wf-btn-secondary:hover:not(:disabled) {
+  background: var(--wf-accent);
+}
+
+/* --------------------------------------------------------------------------
+   Alerts / error messages
+   -------------------------------------------------------------------------- */
+.wf-alert {
+  padding: 0.75rem 1rem;
+  border-radius: var(--wf-radius);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.wf-alert-error {
+  background: oklch(from var(--wf-destructive) l c h / 0.08);
+  border: 1px solid oklch(from var(--wf-destructive) l c h / 0.3);
+  color: var(--wf-destructive);
+}
+
+.wf-alert-info {
+  background: var(--wf-muted);
+  border: 1px solid var(--wf-border);
+  color: var(--wf-foreground);
+}
+
+/* --------------------------------------------------------------------------
+   Divider with text
+   -------------------------------------------------------------------------- */
+.wf-divider {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--wf-muted-fg);
+  font-size: 0.8125rem;
+}
+
+.wf-divider::before,
+.wf-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--wf-border);
+}
+
+/* --------------------------------------------------------------------------
+   Links
+   -------------------------------------------------------------------------- */
+.wf-link {
+  color: var(--wf-foreground);
+  font-size: 0.875rem;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: opacity 0.15s ease;
+}
+
+.wf-link:hover {
+  opacity: 0.7;
+}
+
+/* --------------------------------------------------------------------------
+   Footer text
+   -------------------------------------------------------------------------- */
+.wf-footer {
+  text-align: center;
+  font-size: 0.8125rem;
+  color: var(--wf-muted-fg);
+}
+
+.wf-footer a {
+  color: var(--wf-foreground);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* --------------------------------------------------------------------------
+   Social / Identity provider buttons
+   -------------------------------------------------------------------------- */
+.wf-idp-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.wf-idp-btn {
+  width: 100%;
+  height: 2.5rem;
+  padding: 0 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.625rem;
+  font-family: var(--wf-font-sans);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  background: var(--wf-card);
+  color: var(--wf-foreground);
+  border: 1px solid var(--wf-border);
+  border-radius: var(--wf-radius);
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.15s ease, transform 0.1s ease;
+}
+
+.wf-idp-btn:hover {
+  background: var(--wf-muted);
+}
+
+.wf-idp-btn:active {
+  transform: scale(0.98);
+}
+
+/* --------------------------------------------------------------------------
+   Checkbox (remember me / terms)
+   -------------------------------------------------------------------------- */
+.wf-checkbox-field {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.wf-checkbox {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 0.25rem;
+  accent-color: var(--wf-primary);
+  cursor: pointer;
+}
+
+.wf-checkbox-label {
+  font-size: 0.875rem;
+  color: var(--wf-muted-fg);
+  cursor: pointer;
+}
+
+/* --------------------------------------------------------------------------
+   OTP / code input
+   -------------------------------------------------------------------------- */
+.wf-otp-input {
+  text-align: center;
+  letter-spacing: 0.25em;
+  font-family: var(--wf-font-mono);
+  font-size: 1.25rem;
+}
+
+/* --------------------------------------------------------------------------
+   Utilities
+   -------------------------------------------------------------------------- */
+.wf-flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.wf-text-sm {
+  font-size: 0.875rem;
+}
+
+.wf-text-muted {
+  color: var(--wf-muted-fg);
+}

@@ -7,7 +7,12 @@ export default defineConfig({
     plugins: [
         react(),
         keycloakify({
-            accountThemeImplementation: "none"
+            themeName: "wattflow",
+            themeVersion: "1.0.0",
+            // Keycloak 26.x resources baseline
+            loginThemeResourcesFromKeycloakVersion: "26.0.0",
+            // Enable both login + account console theming
+            accountThemeImplementation: "Multi-Page",
         })
     ]
 });

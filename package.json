@@ -1,11 +1,7 @@
 {
-    "name": "keycloakify-starter",
-    "version": "0.0.0",
-    "description": "Starter for Keycloakify 11",
-    "repository": {
-        "type": "git",
-        "url": "git://github.com/codegouvfr/keycloakify-starter.git"
-    },
+    "name": "wattflow-keycloak-theme",
+    "version": "1.0.0",
+    "description": "Keycloak login & account theme for Wattflow platform",
     "type": "module",
     "scripts": {
         "dev": "vite",
@@ -15,7 +11,6 @@
         "format": "prettier . --write"
     },
     "license": "MIT",
-    "keywords": [],
     "dependencies": {
         "keycloakify": "^11.16.0",
         "react": "^18.2.0",
