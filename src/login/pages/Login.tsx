@@ -38,12 +38,7 @@ export default function Login(props: PageProps<LoginKcContext, I18n>) {
                     <>
                         <div className="wf-idp-list">
                             {social.providers.map((provider: { providerId: string; loginUrl: string; displayName: string }) => (
-                                <a
-                                    key={provider.providerId}
-                                    href={provider.loginUrl}
-                                    className="wf-idp-btn"
-                                    id={`social-${provider.providerId}`}
-                                >
+                                <a key={provider.providerId} href={provider.loginUrl} className="wf-idp-btn" id={`social-${provider.providerId}`}>
                                     {provider.displayName}
                                 </a>
                             ))}
@@ -105,13 +100,31 @@ export default function Login(props: PageProps<LoginKcContext, I18n>) {
                                 aria-label={isPasswordVisible ? "Hide password" : "Show password"}
                             >
                                 {isPasswordVisible ? (
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                    <svg
+                                        width="16"
+                                        height="16"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        strokeWidth="2"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                    >
                                         <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94" />
                                         <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19" />
                                         <line x1="1" y1="1" x2="23" y2="23" />
                                     </svg>
                                 ) : (
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                    <svg
+                                        width="16"
+                                        height="16"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        strokeWidth="2"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                    >
                                         <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
                                         <circle cx="12" cy="12" r="3" />
                                     </svg>
@@ -123,13 +136,7 @@ export default function Login(props: PageProps<LoginKcContext, I18n>) {
                     {/* Remember me */}
                     {realm.rememberMe && !usernameHidden && (
                         <div className="wf-checkbox-field">
-                            <input
-                                id="rememberMe"
-                                name="rememberMe"
-                                type="checkbox"
-                                className="wf-checkbox"
-                                defaultChecked={!!login.rememberMe}
-                            />
+                            <input id="rememberMe" name="rememberMe" type="checkbox" className="wf-checkbox" defaultChecked={!!login.rememberMe} />
                             <label htmlFor="rememberMe" className="wf-checkbox-label">
                                 {msg("rememberMe")}
                             </label>
@@ -146,8 +153,7 @@ export default function Login(props: PageProps<LoginKcContext, I18n>) {
                 {/* Register link */}
                 {realm.password && realm.registrationAllowed && !registrationDisabled && (
                     <p className="wf-footer">
-                        New to Wattflow?{" "}
-                        <a href={url.registrationUrl}>Create an account</a>
+                        New to Wattflow? <a href={url.registrationUrl}>Create an account</a>
                     </p>
                 )}
             </div>
