@@ -1,13 +1,13 @@
 import { useState } from "react";
-import type { PageProps } from "keycloakify/login/pages/Login";
+import type { PageProps } from "keycloakify/login/pages/PageProps";
 import type { KcContext } from "../KcContext";
 import type { I18n } from "../i18n";
 import "../assets/tokens.css";
 import "../assets/theme.css";
 
-export default function Login(
-    props: PageProps<Extract<KcContext, { pageId: "login.ftl" }>, I18n>
-) {
+type LoginKcContext = Extract<KcContext, { pageId: "login.ftl" }>;
+
+export default function Login(props: PageProps<LoginKcContext, I18n>) {
     const { kcContext, i18n } = props;
     const { social, realm, url, usernameHidden, login, auth, registrationDisabled, messagesPerField } = kcContext;
     const { msg } = i18n;
@@ -37,7 +37,7 @@ export default function Login(
                 {social?.providers && social.providers.length > 0 && (
                     <>
                         <div className="wf-idp-list">
-                            {social.providers.map(provider => (
+                            {social.providers.map((provider: { providerId: string; loginUrl: string; displayName: string }) => (
                                 <a
                                     key={provider.providerId}
                                     href={provider.loginUrl}
@@ -71,12 +71,8 @@ export default function Login(
                                 autoComplete="username"
                                 defaultValue={login.username ?? ""}
                                 autoFocus
-                                className={`wf-input${messagesPerField.existsError("username") ? " wf-input-error" : ""}`}
-                                placeholder={
-                                    realm.loginWithEmailAllowed
-                                        ? "you@example.com"
-                                        : "Username"
-                                }
+                                className="wf-input"
+                                placeholder={realm.loginWithEmailAllowed ? "you@example.com" : "Username"}
                             />
                         </div>
                     )}
@@ -99,7 +95,7 @@ export default function Login(
                                 name="password"
                                 type={isPasswordVisible ? "text" : "password"}
                                 autoComplete="current-password"
-                                className={`wf-input${messagesPerField.existsError("password") ? " wf-input-error" : ""}`}
+                                className="wf-input"
                                 placeholder="••••••••"
                             />
                             <button
@@ -109,14 +105,12 @@ export default function Login(
                                 aria-label={isPasswordVisible ? "Hide password" : "Show password"}
                             >
                                 {isPasswordVisible ? (
-                                    // Eye-off icon
                                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                         <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94" />
                                         <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19" />
                                         <line x1="1" y1="1" x2="23" y2="23" />
                                     </svg>
                                 ) : (
-                                    // Eye icon
                                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                         <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
                                         <circle cx="12" cy="12" r="3" />
@@ -144,13 +138,7 @@ export default function Login(
 
                     <input type="hidden" name="credentialId" value={auth.selectedCredential ?? ""} />
 
-                    {/* Submit */}
-                    <button
-                        id="kc-login"
-                        name="login"
-                        type="submit"
-                        className="wf-btn wf-btn-primary"
-                    >
+                    <button id="kc-login" name="login" type="submit" className="wf-btn wf-btn-primary">
                         {msg("doLogIn")}
                     </button>
                 </form>

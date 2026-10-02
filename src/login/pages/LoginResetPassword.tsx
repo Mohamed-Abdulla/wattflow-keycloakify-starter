@@ -1,12 +1,12 @@
-import type { PageProps } from "keycloakify/login/pages/LoginResetPassword";
+import type { PageProps } from "keycloakify/login/pages/PageProps";
 import type { KcContext } from "../KcContext";
 import type { I18n } from "../i18n";
 import "../assets/tokens.css";
 import "../assets/theme.css";
 
-export default function LoginResetPassword(
-    props: PageProps<Extract<KcContext, { pageId: "login-reset-password.ftl" }>, I18n>
-) {
+type ResetKcContext = Extract<KcContext, { pageId: "login-reset-password.ftl" }>;
+
+export default function LoginResetPassword(props: PageProps<ResetKcContext, I18n>) {
     const { kcContext, i18n } = props;
     const { url, realm, auth, messagesPerField } = kcContext;
     const { msg } = i18n;

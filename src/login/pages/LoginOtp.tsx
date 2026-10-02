@@ -1,12 +1,12 @@
-import type { PageProps } from "keycloakify/login/pages/LoginOtp";
+import type { PageProps } from "keycloakify/login/pages/PageProps";
 import type { KcContext } from "../KcContext";
 import type { I18n } from "../i18n";
 import "../assets/tokens.css";
 import "../assets/theme.css";
 
-export default function LoginOtp(
-    props: PageProps<Extract<KcContext, { pageId: "login-otp.ftl" }>, I18n>
-) {
+type OtpKcContext = Extract<KcContext, { pageId: "login-otp.ftl" }>;
+
+export default function LoginOtp(props: PageProps<OtpKcContext, I18n>) {
     const { kcContext, i18n } = props;
     const { url, otpLogin, messagesPerField } = kcContext;
     const { msg } = i18n;
@@ -36,7 +36,7 @@ export default function LoginOtp(
                     {otpLogin.userOtpCredentials.length > 1 && (
                         <div className="wf-field">
                             <label className="wf-label">Select authenticator</label>
-                            {otpLogin.userOtpCredentials.map((otpCredential, index) => (
+                            {otpLogin.userOtpCredentials.map((otpCredential: { id: string; userLabel: string }, index: number) => (
                                 <div key={otpCredential.id} className="wf-checkbox-field">
                                     <input
                                         id={`kc-otp-credential-${index}`}

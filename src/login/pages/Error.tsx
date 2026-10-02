@@ -1,15 +1,14 @@
-import type { PageProps } from "keycloakify/login/pages/Error";
+import type { PageProps } from "keycloakify/login/pages/PageProps";
 import type { KcContext } from "../KcContext";
 import type { I18n } from "../i18n";
 import "../assets/tokens.css";
 import "../assets/theme.css";
 
-export default function Error(
-    props: PageProps<Extract<KcContext, { pageId: "error.ftl" }>, I18n>
-) {
-    const { kcContext, i18n } = props;
+type ErrorKcContext = Extract<KcContext, { pageId: "error.ftl" }>;
+
+export default function Error(props: PageProps<ErrorKcContext, I18n>) {
+    const { kcContext } = props;
     const { message, client } = kcContext;
-    const { msg } = i18n;
 
     return (
         <div className="wf-layout">
